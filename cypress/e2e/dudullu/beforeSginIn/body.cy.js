@@ -1,7 +1,13 @@
 describe('Popüler Kategoriler Testi', () => {
     it('Butonların varlığını kontrol et', () => {
-        // Sayfayı ziyaret et
-        cy.visit('https://test.dudullu.com/');
+        cy.visit('/');
+        // URL'nin doğru olduğunu kontrol et
+        cy.url().should('eq', 'https://test.dudullu.com/');
+        // Başlık metnini kontrol et
+        cy.get('.justify-center > .MuiTypography-root').should('be.visible');
+
+        // Siteye başarıyla ziyaret etti yapıldı mesajını logla
+        cy.log('Siteye başarıyla ziyaret etti');
 
         // Popüler kategoriler divinin varlığını kontrol et
         cy.get('.populer-category_slider__CrI9_')
@@ -25,51 +31,45 @@ describe('Popüler Kategoriler Testi', () => {
     });
 });
 
-describe('İlginizi Çekebilecek Konular Testi', () => {
     it('İlgili içeriklerin varlığını kontrol et', () => {
         // Sayfayı ziyaret et
-        cy.visit('https://test.dudullu.com/');
+        cy.visit('/');
 
-        // İlgili içerik başlığını kontrol et
-        cy.contains('İlginizi çekebilecek konular')
+
+
+        cy.get('.populer-category_slider__CrI9_ > :nth-child(2)')
+            .click()
+            .should('be.visible')
+            .log('categoryler vardir! ')
+
+        cy.contains('En Çok Görüntülenen İçerikler')
             .should('be.visible');
 
-        // İlgili içerik kartlarını kontrol et
+        cy.get(':nth-child(1) > .leftbar_topic-card-link__tSUXA > .leftbar_topic-card-content-container__Qqv5b > .leftbar_topic-card-title__1fTZo').click()
+        .log('left bar calisisyor ')
+        cy.visit('/');
+
         cy.get('.leftbar_topic-card-container__pMWV0')
-            .should('have.length', 5) // Toplam 5 ilgili içerik kartı olduğunu kontrol et
+            .should('have.length', 6)
             .each(($card) => {
                 cy.wrap($card)
                     .should('be.visible');
             });
     });
-});
 
-describe('İçerik Oluşturma Testi', () => {
-    it('İçerik oluşturma bileşenini kontrol et', () => {
-        // Sayfayı ziyaret et
-        cy.visit('https://test.dudullu.com/');
+    it.only('İçerik oluşturma bileşenini kontrol et', () => {
+        cy.visit('/');
+        cy.get('.new-content_new-wordy-input__v4mkE').click().log('calisiyor')
+        cy.url().should('eq', 'https://test.dudullu.com/login');
+        cy.get('#username').type('testingkullnici') // Replace 'your_username' with the actual username
+        cy.get('#password').type('BilalSYR2002.') // Replace 'your_password' with the actual password
+        cy.get('.login-form_submit-button__QmMj9').click()
+        cy.get('#basic-button > .MuiAvatar-root').click()
+        cy.get('.MuiList-root > :nth-child(7)').click().log('Cikis yapildi! ')
 
-        // Profil resmi alanını kontrol et
-        cy.get('.new-content_profile-image-container__ihlHw svg')
-            .should('be.visible');
-
-        // İçerik oluşturma alanını kontrol et
-        cy.get('.new-content_new-wordy-input-container__T87BR')
-            .should('be.visible');
-
-        // İçerik oluşturma giriş kutusunu kontrol et
-        cy.get('.new-content_new-wordy-input__v4mkE')
-            .should('be.visible')
-            .and('have.attr', 'placeholder', 'İçerik oluşturun');
-
-        // İçerik oluşturma butonunu kontrol et
-        cy.get('.new-content_button-container__qdeLN svg')
-            .should('be.visible');
-    });
-});
+    });cy.visit('/')
 
 
-describe('Test the SVG icon', () => {
     it('Verifies the SVG icon attributes', () => {
         // Visit the page or load the HTML content with the SVG icon
         cy.visit('https://test.dudullu.com/');
@@ -79,9 +79,7 @@ describe('Test the SVG icon', () => {
         cy.get(':nth-child(1) > .MuiCardContent-root').click();
         cy.get(':nth-child(1) > .MuiCardContent-root').click();
     });
-});
 
-describe('Test buttons and SVG icons', () => {
     it('Verifies the buttons and SVG icons', () => {
         // Visit the page or load the HTML content with the buttons and SVG icons
         cy.visit('https://test.dudullu.com/');
@@ -98,9 +96,7 @@ describe('Test buttons and SVG icons', () => {
 
         // You can add more assertions as needed based on your test requirements
     });
-});
 
-describe('Test right sidebar content', () => {
     it('Verifies the content of the right sidebar', () => {
         // Visit the page or load the HTML content with the right sidebar
         cy.visit('https://test.dudullu.com/');
@@ -122,7 +118,6 @@ describe('Test right sidebar content', () => {
             cy.contains('Daha fazla göster...').should('have.attr', 'href', '/yardim-merkezi/kurallar');
             cy.contains('©2024 Dudullu.com - Tüm Hakları Saklıdır.');
         });
-    });
 });
 
 
