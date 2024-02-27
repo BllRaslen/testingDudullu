@@ -1,14 +1,15 @@
 describe('Popüler Kategoriler Testi', () => {
-    it('Butonların varlığını kontrol et', () => {
-        // Ana sayfaya git
+    beforeEach(() => {
+        // Sayfayı ziyaret et veya HTML içeriğini sağ kenar çubuğuyla yükle
         cy.visit('/');
-        // URL'nin doğru olduğunu kontrol et
         cy.url().should('eq', 'https://test.dudullu.com/');
         // Başlık metnini kontrol et
         cy.get('.justify-center > .MuiTypography-root').should('be.visible');
 
         // Siteye başarıyla ziyaret edildi mesajını logla
         cy.log('Siteye başarıyla ziyaret edildi');
+    });
+    it('Butonların varlığını kontrol et', () => {
 
         // Popüler kategoriler divinin varlığını kontrol et
         cy.get('.populer-category_slider__CrI9_')
@@ -32,10 +33,7 @@ describe('Popüler Kategoriler Testi', () => {
     });
 
     it('İlgili içeriklerin varlığını kontrol et', () => {
-        // Sayfayı ziyaret et
-        cy.visit('/');
 
-        // İlgili kategoriye tıkla ve içeriklerin varlığını kontrol et
         cy.get('.populer-category_slider__CrI9_ > :nth-child(2)')
             .click()
             .should('be.visible')
@@ -60,7 +58,6 @@ describe('Popüler Kategoriler Testi', () => {
 
     it('İçerik oluşturma bileşenini kontrol et', () => {
         // Ana sayfaya git
-        cy.visit('/');
 
         // İçerik oluşturma butonunu tıkla ve giriş sayfasına yönlendirildiğini kontrol et
         cy.get('.new-content_new-wordy-input__v4mkE').click().log('Çalışıyor');
@@ -69,15 +66,24 @@ describe('Popüler Kategoriler Testi', () => {
         cy.visit('/').log('Ana sayfaya dönüldü');
     });
 
-    it('SVG ikon özelliklerini doğrular', () => {
-        // Sayfayı ziyaret et
-        cy.visit('/');
+    it('Makalenin kardi Kontrolu', () => {
 
-        // SVG ikon öğesinin varlığını doğrula
         cy.get(':nth-child(1) > .MuiCardHeader-root > .MuiCardHeader-action > .MuiButtonBase-root > [data-testid="MoreVertIcon"]').click().log('Üç noktalı menü çalışıyor');
 
         cy.get(':nth-child(1) > .MuiCardContent-root').click().log('Makalenin linki çalışıyor');
+        cy.visit('/')
+        cy.get(':nth-child(1) > .MuiCardActions-root > .MuiGrid-container > .MuiGrid-grid-lg-6 > .MuiButtonBase-root').click()
+        cy.url().should('eq', 'https://test.dudullu.com/login');
+        cy.wait(3000)
+        cy.visit('/')
+        cy.get(':nth-child(1) > .MuiCardActions-root > .MuiGrid-container > .MuiGrid-grid-lg-6 > [style="padding: 4px 8px; margin: 4px; border-radius: 8px;"]').click()
+        //
+        cy.url().should('not.eq', 'https://test.dudullu.com/login');
+        cy.wait(3000)
+        cy.visit('/')
+
     });
+
 
     /* cy.get('#username').type('testingkullnici') // Replace 'your_username' with the actual username
       cy.get('#password').type('BilalSYR2002.') // Replace 'your_password' with the actual password

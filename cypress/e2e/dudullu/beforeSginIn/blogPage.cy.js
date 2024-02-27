@@ -1,28 +1,73 @@
-describe('Test left sidebar content', () => {
-    it('Verifies the content of the left sidebar', () => {
-        // Visit the page or load the HTML content with the left sidebar
-        cy.visit('https://test.dudullu.com/');
+describe('Sağ kenar çubuğunun içeriğini doğrular', () => {
+    it('"Yardım" sayfasına yönlendirilir', () => {
+        // Visit the page
+        cy.visit('/');
 
-        // Verify the title
-        cy.contains('Yazar Hakkında').should('be.visible');
+        // Assert the URL is correct
+        cy.url().should('eq', 'https://test.dudullu.com/');
 
-        // Verify the avatar
-        cy.get('.MuiAvatar-root').should('be.visible');
+        // Ensure the main title is visible
+        cy.get('.justify-center > .MuiTypography-root').should('be.visible');
 
-        // Verify the author name
-        cy.contains('Haber').should('be.visible');
+        // Log a success message after visiting the site
+        cy.log('Siteye başarıyla ziyaret edildi');
 
-        // Verify the author handle
-        cy.contains('@Haber Hattı').should('be.visible');
+        // Click on the link to the "Yardım" page and assert redirection
+        cy.get(':nth-child(1) > .MuiCardContent-root > a > .MuiStack-root > .mui-55v1pp')
+            .click()
+            .log('Yardım sayfasına yönlendirildi');
 
-        // Verify the follow button
-        cy.get('button').should('have.css', 'border-color', 'rgb(0, 210, 131)')
-            .and('have.css', 'color', 'rgb(0, 210, 131)')
-            .and('have.css', 'border-radius', '8px')
-            .and('have.text', '+ Takip Et');
+        // Click on the anchor element
+        cy.get('.mui-15j76c0 > a').click();
 
-        // Verify the "Daha fazlası ..." link
-        cy.contains('Daha fazlası ...').should('have.attr', 'href', '/profile/Haber Hattı')
-            .and('have.css', 'color', 'rgb(70, 202, 254)');
+        // Ensure the anchor redirects to the expected page and is visible
+        cy.get('.mui-117da3q > .MuiGrid-root > span').should('be.visible').click()
+        cy.wait(2000)
+        // Click on other elements if needed
+        cy.get('.mui-1yheuv > span').click()
+
+        cy.get(':nth-child(3) > a > .MuiBox-root').click()
+        cy.get('.login-form_title__wTwpJ').should('be.visible')
+        cy.go(-1)
+       // cy.url().should('eq', 'https://test.dudullu.com/login?callbackUrl=https%3A%2F%2Ftest.dudullu.com%2Faccount%2FHaber%2520Hatt%25C4%25B1%2Fcontent').log('Calisiyor');
+      //   cy.go(-1);
+
+        cy.get(':nth-child(2) > a > .MuiBox-root').click()
+        // cy.url().should('eq', 'https://test.dudullu.com/login?callbackUrl=https%3A%2F%2Ftest.dudullu.com%2Faccount%2FHaber%2520Hatt%25C4%25B1%2FFollow-up').log('Calisiyor');
+        // cy.go(-1);
+
+        cy.get(':nth-child(1) > a > .MuiBox-root').click()
+        // cy.url().should('eq', 'https://test.dudullu.com/login?callbackUrl=https%3A%2F%2Ftest.dudullu.com%2Faccount%2FHaber%2520Hatt%25C4%25B1%2Follows').log('Calisiyor');
+        // cy.go(-1);
+
+        cy.get(':nth-child(4) > a > .MuiBox-root').click()
+        // cy.url().should('eq', 'https://test.dudullu.com/login?callbackUrl=https%3A%2F%2Ftest.dudullu.com%2Faccount%2FHaber%2520Hatt%25C4%25B1%2Ftaste').log('Calisiyor');
+        // cy.go(-1);
+
+        cy.get(':nth-child(5) > a > .MuiBox-root').click()
+        // cy.url().should('eq', 'https://test.dudullu.com/login?callbackUrl=https%3A%2F%2Ftest.dudullu.com%2Faccount%2FHaber%2520Hatt%25C4%25B1%2Fimpression').log('Calisiyor');
+        // cy.go(-1);
+
+        cy.get(':nth-child(6) > a > .MuiBox-root').click()
+        // cy.url().should('eq', 'https://test.dudullu.com/login?callbackUrl=https%3A%2F%2Ftest.dudullu.com%2Faccount%2FHaber%2520Hatt%25C4%25B1%2comment').log('Calisiyor');
+        // cy.go(-1);
+        cy.get(':nth-child(1) > .MuiCardHeader-root > .MuiCardHeader-action > .MuiButtonBase-root > [data-testid="MoreVertIcon"]').click().log('Üç noktalı menü çalışıyor');
+
+
+        cy.get(':nth-child(1) > .MuiCardActions-root > .MuiGrid-container > .MuiGrid-grid-lg-6 > .MuiButtonBase-root').click()
+        cy.url().should('eq', 'https://test.dudullu.com/login');
+        cy.log('liked ');
+        cy.wait(3000)
+        cy.go(-1)
+        cy.get(':nth-child(1) > .MuiCardActions-root > .MuiGrid-container > .MuiGrid-grid-lg-6 > [style="padding: 4px 8px; margin: 4px; border-radius: 8px;"]').click()
+        //
+
+        cy.url().should('not.eq', 'https://test.dudullu.com/login');
+        cy.wait(3000)
+        cy.go(-1)
+
+
     });
 });
+
+

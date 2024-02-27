@@ -2,6 +2,12 @@ describe('Sağ kenar çubuğunun içeriğini doğrular', () => {
     beforeEach(() => {
         // Sayfayı ziyaret et veya HTML içeriğini sağ kenar çubuğuyla yükle
         cy.visit('/');
+        cy.url().should('eq', 'https://test.dudullu.com/');
+        // Başlık metnini kontrol et
+        cy.get('.justify-center > .MuiTypography-root').should('be.visible');
+
+        // Siteye başarıyla ziyaret edildi mesajını logla
+        cy.log('Siteye başarıyla ziyaret edildi');
     });
 
     it('"Yardım" sayfasına yönlendirilir', () => {
