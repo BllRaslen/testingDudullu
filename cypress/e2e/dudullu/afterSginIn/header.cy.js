@@ -39,35 +39,38 @@ describe('Web sayfası testi', () => {
         cy.get(':nth-child(3) > #basic-button > .MuiAvatar-root').click();
         cy.log("+ iconuna basıldı ");
     });
+    it('Login Form Submission', () => {
+        cy.visit("/login")
+        // Type username and password
+        cy.get('#username').type('testingkullnici');
+        cy.get('#password').type('BilalSYR2002.');
 
-    describe('Drawer Links Test', () => {
-        it('Checks the presence and functionality of links in the drawer', () => {
-            cy.visit('/'); // Visit the webpage where the drawer is present
+        cy.wait(2000)
 
-            // Check the presence and functionality of the login link
-            cy.get('a[href="/login"]').click();
-
-            // Assert that the URL should contain '/login'
-            cy.url().should('include', '/login');
-            // Verify if the page navigated to the login page
-
-
-            // Navigate back to the original page
-            cy.go('back');
-
-            // Check the presence and functionality of the register link
-            cy.get('a[href="/register"]').click();
-            cy.url().should('include', '/register');
+        // Click the submit button
+        cy.get('.login-form_submit-button__QmMj9').click();
+        cy.wait(2000)
 
 
-            // Navigate back to the original page
-            cy.go('back');
+        cy.visit('https://dudullu.com/login')
+        cy.wait(2000)
+        cy.get('#username').type('testingkullnici');
+        cy.get('#password').type('BilalSYR2002.');
+        cy.wait(2000)
+        // Click the submit button
+        cy.get('.login-form_submit-button__QmMj9').click();
 
-            // Check the presence and functionality of the help center link
-            cy.get('a[href="/yardim-merkezi/kullanim-klavuzu"]').click();
-            cy.url().should('include', '/yardim-merkezi/kullanim-klavuzu');
-        });
+        cy.wait(2000)
+        cy.get(':nth-child(1) > .MuiButtonBase-root > .MuiBadge-root > .items_nav-button-icon-container__8nDiN > a > .items_nav-button-icon__HAT1i').click();
+
+        cy.get(':nth-child(2) > .MuiButtonBase-root > .MuiBadge-root > .items_nav-button-icon-container__8nDiN > a > .items_nav-button-icon__HAT1i').click();
+       
+        cy.go("back")
+
     });
+
+
+
 
 
 });
